@@ -5,6 +5,7 @@ import keyboardsRoutes from "./routers/keyboards.routes.js";
 import keycapsRoutes from "./routers/keycaps.routes.js";
 import switchesRoutes from "./routers/switches.routes.js";
 import accessoriesRoutes from "./routers/accessories.routes.js";
+import filtersRoutes from "./routers/filter.routes.js";
 import mongoose from "mongoose";
 const app = express();
 dotenv.config();
@@ -19,6 +20,9 @@ app.use("/api/products", keyboardsRoutes);
 app.use("/api/products", keycapsRoutes);
 app.use("/api/products", switchesRoutes);
 app.use("/api/products", accessoriesRoutes);
+
+// ROUTES FOR FILTERS
+app.use("/api/filters", filtersRoutes);
 
 // ROUTE FOR TESTING
 app.get("/", (req, res) => {
