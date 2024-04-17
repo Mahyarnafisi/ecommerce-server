@@ -43,6 +43,9 @@ const keycapsSchema = new mongoose.Schema({
   popularity: {
     type: Number,
   },
+  images: {
+    type: Array,
+  },
 });
 
 const Keycap = mongoose.model("keycap", keycapsSchema);

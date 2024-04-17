@@ -1,0 +1,58 @@
+[
+  {
+    "product": "keyboards",
+    "filters": [
+      {
+        "title": "keyboard profile",
+        "options": ["low profile", "normal-profile"]
+      },
+      {
+        "title": "series",
+        "options": ["gem", "air", "halo", "field"]
+      },
+      {
+        "title": "connectivity",
+        "options": ["Tri-mode wireless", "wired"]
+      },
+      {
+        "title": "sizes",
+        "options": ["60%", "65%", "75%", "96%"]
+      }
+    ]
+  },
+  {
+    "product": "keycaps",
+    "filters": [
+      {
+        "title": "keycaps profile",
+        "options": ["low profile", "normal-profile"]
+      },
+      {
+        "title": "series",
+        "options": ["KDA", "mSA", "PBT"]
+      }
+    ]
+  },
+  {
+    "product": "switches",
+    "filters": [
+      {
+        "title": "switches profile",
+        "options": ["low profile", "normal-profile"]
+      },
+      {
+        "title": "series",
+        "options": ["clicky", "linear", "tactile"]
+      }
+    ]
+  },
+  {
+    "product": "accessories",
+    "filters": [
+      {
+        "title": "product type",
+        "options": ["deskmats", "wristrest", "cases"]
+      }
+    ]
+  }
+]

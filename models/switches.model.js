@@ -43,6 +43,9 @@ const switchesSchema = new mongoose.Schema({
   popularity: {
     type: Number,
   },
+  images: {
+    type: Array,
+  },
 });
 
 const Switch = mongoose.model("switch", switchesSchema);

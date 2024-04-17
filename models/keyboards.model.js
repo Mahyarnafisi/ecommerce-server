@@ -52,6 +52,9 @@ const keyboardsSchema = new mongoose.Schema({
   popularity: {
     type: Number,
   },
+  images: {
+    type: Array,
+  },
 });
 
 const Keyboard = mongoose.model("Keyboard", keyboardsSchema);
