@@ -34,6 +34,9 @@ const accessoriesSchema = mongoose.Schema({
   popularity: {
     type: Number,
   },
+  images: {
+    type: Array,
+  },
 });
 
 const Accessory = mongoose.model("Accessory", accessoriesSchema);

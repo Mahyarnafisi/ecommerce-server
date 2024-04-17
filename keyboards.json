@@ -1,0 +1,279 @@
+[
+  {
+    "title": "NuPhy Gem80",
+    "price": 169.95,
+    "description": "QMK/VIA Wireless Custom Mechanical Keyboard",
+    "rate_average": 4,
+    "rate_number": 10,
+    "colors": [
+      {
+        "name": "Cosmic Mocha",
+        "hex": "#b1a99f"
+      },
+      {
+        "name": "Mystic Indigo",
+        "hex": "#204485"
+      },
+      {
+        "name": "Obsidian Black",
+        "hex": "#2b2c2e"
+      }
+    ],
+    "profile_type": "low-profile",
+    "category": "keyboard",
+    "series": "gem",
+    "connectivity": "Tri-mode wireless",
+    "size": 75,
+    "features": "2.4GHz 1000Hz",
+    "new": true,
+    "delivery_time": 3,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 9,
+    "images": ["NuPhyGem80-CosmicMochax.webp", "NuPhyGem80-MysticIndigox.webp", "NuPhyGem80-ObsidianBlackx.webp"]
+  },
+  {
+    "title": "NuPhy Air96 V2",
+    "price": 129.95,
+    "description": "QMK/VIA Wireless Mechanical Keyboard",
+    "rate_average": 4.5,
+    "rate_number": 2,
+    "colors": [
+      {
+        "name": "Basalt Black",
+        "hex": "#1f1f1f"
+      },
+      {
+        "name": "Ionic White",
+        "hex": "#e9e9e9"
+      },
+      {
+        "name": "Lunar Gray",
+        "hex": "#a4a4a4"
+      }
+    ],
+    "profile_type": "low-profile",
+    "category": "keyboard",
+    "series": "air",
+    "connectivity": "Tri-mode wireless",
+    "size": 96,
+    "features": "2.4GHz 1000Hz",
+    "new": false,
+    "delivery_time": 3,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 9,
+    "images": ["NuPhyAir96-BasaltBlack.webp", "NuPhyAir96-IonicWhite.webp", "NuPhyAir96-LunarGray.webp"]
+  },
+  {
+    "title": "NuPhy Air75 V2",
+    "price": 119.95,
+    "description": "QMK/VIA Wireless Mechanical Keyboard",
+    "rate_average": 4.8,
+    "rate_number": 29,
+    "colors": [
+      {
+        "name": "Basalt Black",
+        "hex": "#1f1f1f"
+      },
+      {
+        "name": "Ionic White",
+        "hex": "#e9e9e9"
+      },
+      {
+        "name": "Lunar Gray",
+        "hex": "#a4a4a4"
+      }
+    ],
+    "profile_type": "low-profile",
+    "category": "keyboard",
+    "series": "air",
+    "connectivity": "Tri-mode wireless",
+    "size": 75,
+    "features": "2.4GHz 1000Hz",
+    "new": false,
+    "delivery_time": 3,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 8,
+    "images": ["NuPhyAir75-BasaltBlack.webp", "NuPhyAir75-IonicWhite.webp", "NuPhyAir75-LunarGray.webp"]
+  },
+  {
+    "title": "NuPhy Air60 V2",
+    "price": 109.95,
+    "description": "QMK/VIA Wireless Mechanical Keyboard",
+    "rate_average": 4.9,
+    "rate_number": 32,
+    "colors": [
+      {
+        "name": "Basalt Black",
+        "hex": "#1f1f1f"
+      },
+      {
+        "name": "Ionic White",
+        "hex": "#e9e9e9"
+      },
+      {
+        "name": "Lunar Gray",
+        "hex": "#a4a4a4"
+      }
+    ],
+    "profile_type": "normal-profile",
+    "category": "keyboard",
+    "series": "air",
+    "connectivity": "Tri-mode wireless",
+    "size": 60,
+    "features": "2.4GHz 1000Hz",
+    "new": false,
+    "delivery_time": 2,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 2,
+    "images": ["NuPhyAir60-BasaltBlack.webp", "NuPhyAir60-IonicWhite.webp", "NuPhyAir60-LunarGray.webp"]
+  },
+  {
+    "title": "NuPhy Halo65",
+    "price": 129.95,
+    "description": "QWireless Mechanical Keyboard",
+    "rate_average": 4.2,
+    "rate_number": 212,
+    "colors": [
+      {
+        "name": "Basalt Black",
+        "hex": "#1f1f1f"
+      },
+      {
+        "name": "Ionic White",
+        "hex": "#e9e9e9"
+      }
+    ],
+    "profile_type": "low-profile",
+    "category": "keyboard",
+    "series": "halo",
+    "connectivity": "Tri-mode wireless",
+    "size": 60,
+    "features": "hot-swappable",
+    "new": false,
+    "delivery_time": 2,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 5,
+    "images": ["NuPhyHalo65-BasaltBlack.webp", "NuPhyHalo65-IonicWhite.webp"]
+  },
+  {
+    "title": "NuPhy Halo75",
+    "price": 139.95,
+    "description": "QWireless Mechanical Keyboard",
+    "rate_average": 4.8,
+    "rate_number": 152,
+    "colors": [
+      {
+        "name": "Basalt Black",
+        "hex": "#1f1f1f"
+      },
+      {
+        "name": "Ionic White",
+        "hex": "#e9e9e9"
+      }
+    ],
+    "profile_type": "low-profile",
+    "category": "keyboard",
+    "series": "halo",
+    "connectivity": "Tri-mode wireless",
+    "size": 75,
+    "features": "hot-swappable",
+    "new": false,
+    "delivery_time": 2,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 8,
+    "images": ["NuPhyHalo75-BasaltBlack.webp", "NuPhyHalo75-IonicWhite.webp"]
+  },
+  {
+    "title": "NuPhy Halo96",
+    "price": 149.95,
+    "description": "QWireless Mechanical Keyboard",
+    "rate_average": 4.9,
+    "rate_number": 512,
+    "colors": [
+      {
+        "name": "Basalt Black",
+        "hex": "#1f1f1f"
+      },
+      {
+        "name": "Ionic White",
+        "hex": "#e9e9e9"
+      }
+    ],
+    "profile_type": "low-profile",
+    "category": "keyboard",
+    "series": "halo",
+    "connectivity": "Tri-mode wireless",
+    "size": 96,
+    "features": "hot-swappable",
+    "new": false,
+    "delivery_time": 7,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 10,
+    "images": ["NuPhyHalo96-BasaltBlack.webp", "NuPhyHalo96-IonicWhite.webp"]
+  },
+  {
+    "title": "NuPhy Field75",
+    "price": 169.95,
+    "description": "Wireless Mechanical Gaming Keyboard",
+    "rate_average": 4.2,
+    "rate_number": 112,
+    "colors": [
+      {
+        "name": "Electro",
+        "hex": "#cbf25c"
+      },
+      {
+        "name": "Noether",
+        "hex": "#f26187"
+      },
+      {
+        "name": "Gravity",
+        "hex": "#7e69de"
+      }
+    ],
+    "profile_type": "normal-profile",
+    "category": "keyboard",
+    "series": "field",
+    "connectivity": "Tri-mode wireless",
+    "size": 75,
+    "features": "hot-swappable",
+    "new": false,
+    "delivery_time": 3,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 9,
+    "images": ["NuPhyField75-Electro.webp", "NuPhyField75-Noether.webp", "NuPhyField75-Gravity.webp"]
+  },
+  {
+    "title": "NuType F1",
+    "price": 119.95,
+    "description": "Wireless Mechanical Keyboard",
+    "rate_average": 4.3,
+    "rate_number": 202,
+    "colors": [
+      {
+        "name": "dark",
+        "hex": "#1f1f1f"
+      }
+    ],
+    "profile_type": "low-profile",
+    "category": "keyboard",
+    "series": "field",
+    "connectivity": "wired",
+    "size": 65,
+    "features": "hot-swappable",
+    "new": false,
+    "delivery_time": 5,
+    "service_email": "service@nuphy.com",
+    "available": false,
+    "popularity": 7,
+    "images": ["NuTypeF1.webp"]
+  }
+]

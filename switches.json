@@ -1,0 +1,142 @@
+[
+  {
+    "title": "Cherry Silent Red Clear-Top Switches",
+    "price": 49.5,
+    "rate_average": 4,
+    "rate_number": 10,
+    "colors": [],
+    "profile_type": "low-profile",
+    "category": "switches",
+    "series": "clicky",
+    "options": [
+      { "count": 90, "available": true, "price": 49.5 },
+      { "count": 36, "available": true, "price": 17.5 }
+    ],
+    "new": true,
+    "delivery_time": 7,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 8,
+    "images": ["CherrySilentRedClearTopSwitches.webp"]
+  },
+  {
+    "title": "Mint Switches",
+    "price": 29.5,
+    "rate_average": 4.5,
+    "rate_number": 9,
+    "colors": [],
+    "profile_type": "normal-profile",
+    "category": "switches",
+    "series": "clicky",
+    "options": [
+      { "count": 90, "available": true, "price": 45.5 },
+      { "count": 36, "available": true, "price": 12.5 }
+    ],
+    "new": true,
+    "delivery_time": 7,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 8,
+    "images": ["NuPhyMintSwitches.webp"]
+  },
+  {
+    "title": "NuPhy Raspberry Switches",
+    "price": 31.5,
+    "rate_average": 4.7,
+    "rate_number": 12,
+    "colors": [],
+    "profile_type": "low-profile",
+    "category": "switches",
+    "series": "linear",
+    "options": [
+      { "count": 90, "available": true, "price": 31.5 },
+      { "count": 36, "available": false, "price": 12.5 }
+    ],
+    "new": false,
+    "delivery_time": 2,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 9,
+    "images": ["NuPhyRaspberrySwitches.webp"]
+  },
+  {
+    "title": "NuPhy Lemon Switches",
+    "price": 31.5,
+    "rate_average": 4.8,
+    "rate_number": 129,
+    "colors": [],
+    "profile_type": "low-profile",
+    "category": "switches",
+    "series": "clicky",
+    "options": [
+      { "count": 90, "available": true, "price": 31.5 },
+      { "count": 36, "available": false, "price": 12.5 }
+    ],
+    "new": false,
+    "delivery_time": 3,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 8,
+    "images": ["NuPhyLemonSwitches.webp"]
+  },
+  {
+    "title": "NuPhy Cowberry Low-profile Switches",
+    "price": 38.5,
+    "rate_average": 4.2,
+    "rate_number": 27,
+    "colors": [],
+    "profile_type": "normal-profile",
+    "category": "switches",
+    "series": "tactile",
+    "options": [
+      { "count": 100, "available": true, "price": 38.5 },
+      { "count": 36, "available": false, "price": 20.5 }
+    ],
+    "new": false,
+    "delivery_time": 4,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 10,
+    "images": ["NuPhyCowberryLowprofileSwitches.webp"]
+  },
+  {
+    "title": "NuPhy Moss Low-profile Switches",
+    "price": 38.5,
+    "rate_average": 4,
+    "rate_number": 302,
+    "colors": [],
+    "profile_type": "low-profile",
+    "category": "switches",
+    "series": "tactile",
+    "options": [
+      { "count": 100, "available": true, "price": 38.5 },
+      { "count": 36, "available": true, "price": 17.5 }
+    ],
+    "new": false,
+    "delivery_time": 1,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 7,
+    "images": ["NuPhyMossLowprofileSwitches.webp"]
+  },
+  {
+    "title": "NuPhy Aloe Low-profile Switches",
+    "price": 38.5,
+    "rate_average": 4.9,
+    "rate_number": 125,
+    "colors": [],
+    "profile_type": "normal-profile",
+    "category": "switches",
+    "series": "linear",
+    "options": [
+      { "count": 100, "available": true, "price": 38.5 },
+      { "count": 36, "available": false, "price": 16.5 }
+    ],
+    "new": true,
+    "delivery_time": 2,
+    "service_email": "service@nuphy.com",
+    "available": true,
+    "popularity": 6,
+    "images": ["NuPhyAloeLowprofileSwitches.webp"]
+  }
+]
