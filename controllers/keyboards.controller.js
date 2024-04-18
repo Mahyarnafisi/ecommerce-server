@@ -4,7 +4,8 @@ import Keyboard from "./../models/keyboards.model.js";
 
 export const getKeyboard = async (req, res) => {
   try {
-    res.send("keyboards");
+    const getAllKeyboards = await Keyboard.find();
+    res.status(200).json({ status: "success", data: getAllKeyboards });
   } catch (err) {
     console.log(err, "from getKeyboard");
   }
