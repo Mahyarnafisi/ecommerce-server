@@ -3,7 +3,8 @@ import Keycap from "../models/keycaps.model.js";
 
 export const getkeycap = async (req, res) => {
   try {
-    res.send("keycaps");
+    const getAllKeycaps = await Keycap.find();
+    res.status(200).json({ status: "success", data: getAllKeycaps });
   } catch (err) {
     console.log(err, "from getkeycaps");
   }
