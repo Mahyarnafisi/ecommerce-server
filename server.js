@@ -6,10 +6,13 @@ import keycapsRoutes from "./routers/keycaps.routes.js";
 import switchesRoutes from "./routers/switches.routes.js";
 import accessoriesRoutes from "./routers/accessories.routes.js";
 import filtersRoutes from "./routers/filter.routes.js";
+import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
-dotenv.config();
 app.use(express.json());
+app.use(cors());
+dotenv.config();
+
 const PORT = process.env.PORT || 3000;
 
 // ROUTES FOR LOGIN, SIGNUP, LOGOUT
