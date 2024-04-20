@@ -4,7 +4,7 @@ import Switch from "./../models/switches.model.js";
 export const getSwitches = async (req, res) => {
   try {
     const getAllSwitches = await Switch.find();
-    res.status(200).json({ status: "success", data: getAllSwitches });
+    res.status(200).json({ status: "Here is all keyboards data", numberOfData: getAllSwitches.length, data: getAllSwitches });
   } catch (err) {
     console.log(err, "from getSwitches");
   }
