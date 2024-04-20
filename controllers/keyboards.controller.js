@@ -6,9 +6,7 @@ export const getKeyboard = async (req, res) => {
   try {
     const getAllKeyboards = await Keyboard.find();
 
-    if (!req.query) {
-      return res.status(200).json({ status: "Here is all keyboards data", data: getAllKeyboards });
-    }
+    // Check if there is a query and the query is "first" and return the first n number of data in keyboards collection in the database ✅
     if (req.query && req.query.first) {
       const queryFirstNumber = req.query.first;
       const sliceOfData = getAllKeyboards.slice(0, queryFirstNumber);
@@ -19,7 +17,8 @@ export const getKeyboard = async (req, res) => {
       });
     }
 
-    res.status(200).json({ status: "success", data: getAllKeyboards });
+    // Check if there is no query and return all data in keyboards collection in the database ✅
+    return res.status(200).json({ status: "Here is all keyboards data", numberOfData: getAllKeyboards.length, data: getAllKeyboards });
   } catch (err) {
     console.log(err, "from getKeyboard");
   }
