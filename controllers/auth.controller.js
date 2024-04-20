@@ -1,14 +1,12 @@
 import express from "express";
 import User from "./../models/user.model.js";
+import bcrypt from "bcrypt";
+import jsonWebToken from "jsonwebtoken";
 
 // signup user
 export const signupUser = async (req, res) => {
   const { username, password } = req.body;
   try {
-    const newUser = new User({
-      username: username,
-      password: password,
-    });
     // check if user already exists
     const findUser = await User.find({ username: username });
     console.log(findUser, "from signup");
@@ -19,8 +17,24 @@ export const signupUser = async (req, res) => {
     }
 
     // if user does not exist, save user to database as new user
-    await newUser.save();
-    res.status(201).send({ status: "new user created successfully", data: username });
+    if (findUser.length === 0) {
+      // create user picture
+      const userPicture = `https://avatar.iran.liara.run/username?username=${username}`;
+
+      // hash password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      // create new user
+      const newUser = new User({
+        username: username,
+        password: hashedPassword,
+        profilePicture: userPicture,
+      });
+
+      await newUser.save();
+      return res.status(201).send({ status: "new user created successfully", data: username });
+    }
   } catch (err) {
     console.log(err, "from signup");
   }
@@ -33,32 +47,28 @@ export const loginUser = async (req, res) => {
   try {
     // check if user exists
     const findUser = await User.find({ username: username });
+    const isPasswordValid = await bcrypt.compare(password, findUser[0].password);
 
-    // if user does not exist, return user not found message ⛔
-    if (findUser.length === 0) {
+    // if user exists but password is incorrect, return incorrect password message ⛔
+    if (findUser.length > 0 && !isPasswordValid) {
       return res.status(404).json({
-        status: "user not found",
+        status: "incorrect password or username, please try again!",
         data: username,
       });
     }
 
     // if user exists, check if password is correct and return login successful message ✅
-    if (findUser.length > 0 && findUser[0].password === password) {
+    if (findUser.length > 0 && isPasswordValid) {
       return res.status(200).json({
         status: "login successful",
         data: findUser,
       });
     }
 
-    // if user exists but password is incorrect, return incorrect password message ⛔
-    if (findUser.length > 0 && findUser[0].password !== password) {
-      return res.status(404).json({
-        status: "incorrect password, please try again with correct password",
-        data: username,
-      });
-    }
+    // if all fails, return error message ❌
   } catch (err) {
-    console.log(object, "from login");
+    res.status(500).json({ status: `did not find username with name ${username}` });
+    console.log("error from login");
   }
 };
 
