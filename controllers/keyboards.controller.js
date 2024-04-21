@@ -41,7 +41,7 @@ export const getKeyboard = async (req, res) => {
       });
     }
 
-    // Check if there is a query and the query in sort and direction to list the data in POPULAR ITEM  ❤️
+    // Check if there is a query and the query in sort to list the data in POPULAR ITEM  ❤️
     if (req.query && req.query.sort === "popular") {
       // Sort the data in POPULAR ITEM
       const popularSorting = getAllKeyboards.sort((a, b) => b.popularity - a.popularity);
