@@ -18,6 +18,7 @@ export const getkeycap = async (req, res) => {
 
     // Check if there is a query and the query in sort and direction to list the data in ASC and DESC direction  ⬇️⬆️
     if (req.query && req.query.sort === "price" && (req.query.direction === "asc" || req.query.direction === "desc")) {
+      // Sort the data in ASC and DESC direction
       const sorting = getAllKeycaps.sort((a, b) => {
         if (req.query.direction === "asc") {
           return a.price - b.price;
@@ -36,6 +37,7 @@ export const getkeycap = async (req, res) => {
 
     // Check if there is a query and the query in sort to list the data in POPULAR ITEM  ❤️
     if (req.query && req.query.sort === "popular") {
+      // Sort the data in POPULAR ITEM
       const popularSorting = getAllKeycaps.sort((a, b) => b.popularity - a.popularity);
       return res.status(200).json({
         status: "popularity sorting",
