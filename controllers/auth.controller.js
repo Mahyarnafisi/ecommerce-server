@@ -1,10 +1,11 @@
 import express from "express";
 import User from "./../models/user.model.js";
 import bcrypt from "bcrypt";
-import jsonWebToken from "jsonwebtoken";
+import generateTokenFunc from "../utils/generateToken.js";
 
 // signup user
 export const signupUser = async (req, res) => {
+  console.log("from signup");
   const { username, password } = req.body;
   try {
     // check if user already exists
@@ -31,9 +32,14 @@ export const signupUser = async (req, res) => {
         password: hashedPassword,
         profilePicture: userPicture,
       });
-
+      generateTokenFunc(newUser._id, res);
       await newUser.save();
-      return res.status(201).send({ status: "new user created successfully", data: username });
+      res.status(201).send({
+        status: "new user created successfully",
+        _id: newUser._id,
+        username: newUser.username,
+        profilePicture: newUser.profilePicture,
+      });
     }
   } catch (err) {
     console.log(err, "from signup");
@@ -43,14 +49,22 @@ export const signupUser = async (req, res) => {
 //
 // login user
 export const loginUser = async (req, res) => {
+  console.log("from login");
   const { username, password } = req.body;
   try {
     // check if user exists
-    const findUser = await User.find({ username: username });
-    const isPasswordValid = await bcrypt.compare(password, findUser[0].password);
+    const findUser = await User.find({ username });
+    const isPasswordValid = await bcrypt.compare(password, findUser[0]?.password || "");
 
-    // if user exists but password is incorrect, return incorrect password message ⛔
+    if (findUser.length === 0) {
+      return res.status(404).json({
+        status: "Theres no user with that username, please try again",
+        data: username,
+      });
+    }
+
     if (findUser.length > 0 && !isPasswordValid) {
+      // if user exists but password is incorrect, return incorrect password message ⛔
       return res.status(404).json({
         status: "incorrect password or username, please try again!",
         data: username,
@@ -59,13 +73,13 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
+      generateTokenFunc(findUser[0]._id, res);
       return res.status(200).json({
         status: "login successful",
-        data: findUser,
+        username: findUser[0].username,
+        profilePicture: findUser[0].profilePicture,
       });
     }
-
-    // if all fails, return error message ❌
   } catch (err) {
     res.status(500).json({ status: `did not find username with name ${username}` });
     console.log("error from login");
@@ -75,9 +89,12 @@ export const loginUser = async (req, res) => {
 //
 // logout user
 export const logoutUser = async (req, res) => {
-  const { username, password } = req.body;
+  console.log("from logout");
   try {
-    res.send("logout route");
+    await res.clearCookie("jwt");
+    return res.status(200).json({
+      status: "logged out successfully",
+    });
   } catch (err) {
     console.log(err, "from logout");
   }
