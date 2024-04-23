@@ -3,7 +3,26 @@ import Switch from "./../models/switches.model.js";
 
 export const getSwitches = async (req, res) => {
   try {
-    const getAllSwitches = await Switch.find();
+    if (!req.query.direction && !req.query.filter && !req.query.first) {
+      const getAllSwitches = await Switch.find();
+      return res.status(200).json({ status: "successful", numberOfData: getAllSwitches.length, data: getAllSwitches });
+    }
+
+    if (req.query.first) {
+      const getAllSwitches = await Switch.find().limit(parseInt(req.query.first));
+      return res.status(200).json({ status: "successful", numberOfData: getAllSwitches.length, data: getAllSwitches });
+    }
+
+    if (req.query.filter || req.query.sort) {
+      const getAllSwitches = (await Switch.find().sort(req.query.direction ? { price: req.query.direction } : { popularity: -1 })).find({
+        $and: Array.from({ length: 20 }, (_, i) => ({ [req.query.filter[i]]: req.query.value[i] })),
+      });
+      return res.status(200).json({
+        status: getAllSwitches.length === 0 ? "There is no result founded!" : "success",
+        numberOfData: getAllSwitches.length,
+        data: getAllSwitches,
+      });
+    }
 
     // Check if there is a query and the query in sort and direction to list the data in ASC and DESC direction  ⬇️⬆️
     if (req.query && req.query.sort === "price" && (req.query.direction === "asc" || req.query.direction === "desc")) {
