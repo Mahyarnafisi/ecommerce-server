@@ -7,17 +7,18 @@ export const getKeyboard = async (req, res) => {
     // find all data in keyboards collection in the database
     if (!req.query.filter && !req.query.sort && !req.query.first) {
       const getAllKeyboards = await Keyboard.find();
-      return res.status(200).json({ status: "successful", numberOfData: getAllKeyboards.length, data: getAllKeyboards });
+      return res.status(200).json({ status: "no filter", numberOfData: getAllKeyboards.length, data: getAllKeyboards });
     }
     // find based on queries when sort in POPULAR
     if (req.query.sort === "popular" && !req.query.direction && !req.query.filter) {
       const getAllKeyboards = await Keyboard.find().sort({ popularity: -1 });
       return res.status(200).json({ status: "most popular items", numberOfData: getAllKeyboards.length, data: getAllKeyboards });
     }
+
     // find based on queries when sort in PRICE and DIRECTION in ASCENDING or DESCENDING
     if (req.query.sort && req.query.direction && !req.query.filter) {
       const getAllKeyboards = await Keyboard.find().sort({ [req.query.sort]: req.query.direction });
-      return res.status(200).json({ status: "items all sorted", numberOfData: getAllKeyboards.length, data: getAllKeyboards });
+      return res.status(200).json({ status: `${req.query.direction}`, numberOfData: getAllKeyboards.length, data: getAllKeyboards });
     }
 
     // find the first n number of data in keyboards collection in the database
