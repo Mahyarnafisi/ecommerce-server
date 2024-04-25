@@ -7,6 +7,8 @@ import switchesRoutes from "./routers/switches.routes.js";
 import accessoriesRoutes from "./routers/accessories.routes.js";
 import filtersRoutes from "./routers/filter.routes.js";
 import searchRoutes from "./routers/search.routes.js";
+import itemRoutes from "./routers/Item.routes.js";
+
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
@@ -25,6 +27,7 @@ app.use("/api/products", keycapsRoutes);
 app.use("/api/products", switchesRoutes);
 app.use("/api/products", accessoriesRoutes);
 app.use("/api", searchRoutes);
+app.use("/api/products", itemRoutes);
 
 // ROUTES FOR FILTERS
 app.use("/api/filters", filtersRoutes);
