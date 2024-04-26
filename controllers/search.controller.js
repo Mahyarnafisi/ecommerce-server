@@ -8,12 +8,16 @@ export const searchProducts = async (req, res) => {
   try {
     if (req.query.q) {
       const findProducts = await Promise.all([
+        Keyboard.find({ description: { $regex: req.query.q, $options: "i" } }),
         Keyboard.find({ title: { $regex: req.query.q, $options: "i" } }),
         Switch.find({ title: { $regex: req.query.q, $options: "i" } }),
+        Switch.find({ description: { $regex: req.query.q, $options: "i" } }),
         Keycap.find({ title: { $regex: req.query.q, $options: "i" } }),
+        Keycap.find({ description: { $regex: req.query.q, $options: "i" } }),
         Accessory.find({ title: { $regex: req.query.q, $options: "i" } }),
+        Accessory.find({ description: { $regex: req.query.q, $options: "i" } }),
       ]).then((result) => {
-        return result.flat(3);
+        return result.flat(7);
       });
 
       res.status(200).json({
