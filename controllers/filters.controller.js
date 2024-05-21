@@ -9,9 +9,8 @@ export const getFilter = async (req, res) => {
   const { product } = req.params;
 
   try {
-    const getFilterOfProduct = await Filter.find({ product: product });
     if (product === "keyboards") {
-      const getNumberOfProductTypeFilter = [
+      const getKeyboardsFilterPanelData = [
         {
           title: "connectivity",
           options: [
@@ -82,9 +81,46 @@ export const getFilter = async (req, res) => {
         },
       ];
 
-      return res.status(200).json({ status: "success", data: getNumberOfProductTypeFilter });
+      return res.status(200).json({ status: "success", data: getKeyboardsFilterPanelData });
     }
     if (product === "keycaps") {
+      const getKeycapsFilterPanelData = [
+        {
+          title: "profile_type",
+          options: [
+            {
+              title: "low-profile",
+              number: await Keycap.find({ profile_type: "low-profile" }).countDocuments(),
+            },
+            {
+              title: "normal-profile",
+              number: await Keycap.find({ profile_type: "normal-profile" }).countDocuments(),
+            },
+          ],
+        },
+        {
+          title: "series",
+          options: [
+            {
+              title: "pbt",
+              number: await Keycap.find({ series: "pbt" }).countDocuments(),
+            },
+            {
+              title: "kds",
+              number: await Keycap.find({ series: "kds" }).countDocuments(),
+            },
+            {
+              title: "msa",
+              number: await Keycap.find({ series: "msa" }).countDocuments(),
+            },
+          ],
+        },
+      ];
+
+      return res.status(200).json({
+        status: "success",
+        data: getKeycapsFilterPanelData,
+      });
     }
   } catch (err) {
     console.log(err, "from getFilter");
