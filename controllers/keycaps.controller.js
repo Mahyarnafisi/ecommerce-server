@@ -3,52 +3,79 @@ import Keycap from "../models/keycaps.model.js";
 
 export const getkeycap = async (req, res) => {
   try {
-    const getAllKeycaps = await Keycap.find();
+    // Find all data when no request query is provided 1️⃣
+    if (!req.query.filter && !req.query.sort && !req.query.first) {
+      const getAllKeycaps = await Keycap.find();
+      return res
+        .status(200)
+        .json({ status: "no filter", numberOfData: getAllKeycaps.length, data: getAllKeycaps });
+    }
 
-    // Check if there is a query and the query is "first" and return the first n number of data in keycaps collection in the database ✅
-    if (req.query && req.query.first) {
-      const queryFirstNumber = req.query.first;
-      const sliceOfData = getAllKeycaps.slice(0, queryFirstNumber);
+    // Find based on queries when sort in POPULAR 2️⃣
+    if (req.query.sort === "popular" && !req.query.direction && !req.query.filter) {
+      const getAllKeycaps = await Keycap.find().sort({ popularity: -1 });
       return res.status(200).json({
-        status: "Here is the first" + (queryFirstNumber > 1 ? " " + queryFirstNumber : "") + (queryFirstNumber > 1 ? "keycaps" : "keycap"),
-        numberOfData: sliceOfData.length,
-        data: sliceOfData,
+        status: "most popular items",
+        numberOfData: getAllKeycaps.length,
+        data: getAllKeycaps,
       });
     }
 
-    // Check if there is a query and the query in sort and direction to list the data in ASC and DESC direction  ⬇️⬆️
-    if (req.query && req.query.sort === "price" && (req.query.direction === "asc" || req.query.direction === "desc")) {
-      // Sort the data in ASC and DESC direction
-      const sorting = getAllKeycaps.sort((a, b) => {
-        if (req.query.direction === "asc") {
-          return a.price - b.price;
-        }
-        if (req.query.direction === "desc") {
-          return b.price - a.price;
-        }
+    // Find based on queries when sort in PRICE and DIRECTION in ASCENDING or DESCENDING 3️⃣
+    if (req.query.sort && req.query.direction && !req.query.filter) {
+      const getAllKeycaps = await Keycap.find().sort({
+        [req.query.sort]: req.query.direction,
       });
       return res.status(200).json({
-        status: req.query.direction === "asc" ? "asc sorting keycaps" : "desc sorting keycaps",
-        numberOfData: sorting.length,
-        startingPrice: sorting[0].price,
-        data: sorting,
+        status: `${req.query.direction}`,
+        numberOfData: getAllKeycaps.length,
+        data: getAllKeycaps,
+      });
+    }
+    // Find the first 5 number of data in keycaps collection in the database 4️⃣
+    if (req.query.first) {
+      const getAllKeycaps = await Keycap.find().limit(parseInt(req.query.first));
+      return res.status(200).json({
+        status: "successful",
+        numberOfData: getAllKeycaps.length,
+        data: getAllKeycaps,
       });
     }
 
-    // Check if there is a query and the query in sort to list the data in POPULAR ITEM  ❤️
-    if (req.query && req.query.sort === "popular") {
-      // Sort the data in POPULAR ITEM
-      const popularSorting = getAllKeycaps.sort((a, b) => b.popularity - a.popularity);
-      return res.status(200).json({
-        status: "popularity sorting",
-        numberOfData: popularSorting.length,
-        mostPopular: popularSorting[0].popularity,
-        data: popularSorting,
-      });
+    // find based on queries in filter and sort and direction and popular 5️⃣
+    if ((req.query.filter = "true")) {
+      // find based on queries in filter and sort and direction and popular if THERE IS AN ARRAY
+      if (Array.isArray(req.query.filterProperty)) {
+        const getAllKeycaps = await Keycap.find({
+          $and: Array.from({ length: req.query.filterProperty.length }, (_, i) => ({
+            [req.query.filterProperty[i]]: req.query.value[i],
+          })),
+        }).sort(req.query.direction ? { price: req.query.direction } : { popularity: -1 });
+
+        return res.status(200).json({
+          status: getAllKeycaps.length === 0 ? "There is no result found!" : "success",
+          numberOfData: getAllKeycaps.length,
+          data: getAllKeycaps,
+        });
+      }
+
+      // find based on queries in filter and sort and direction and popular if THERE IS NO ARRAY
+      if (typeof req.query.filterProperty === "string") {
+        const getAllKeycaps = await Keycap.find({
+          [req.query.filterProperty]: req.query.value,
+        }).sort(req.query.direction ? { price: req.query.direction } : { popularity: -1 });
+
+        return res.status(200).json({
+          status: getAllKeycaps.length === 0 ? "There is no result found!" : "success",
+          numberOfData: getAllKeycaps.length,
+          data: getAllKeycaps,
+        });
+      }
     }
-    // Check if there is no query and return all data in keycaps collection in the database ✅
-    return res.status(200).json({ status: "Here is all keyboards data", numberOfData: getAllKeycaps.length, data: getAllKeycaps });
   } catch (err) {
-    console.log(err, "from getkeycaps");
+    res.status(404).json({
+      status: "failed",
+      message: err.message,
+    });
   }
 };

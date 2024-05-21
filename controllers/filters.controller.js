@@ -84,6 +84,8 @@ export const getFilter = async (req, res) => {
 
       return res.status(200).json({ status: "success", data: getNumberOfProductTypeFilter });
     }
+    if (product === "keycaps") {
+    }
   } catch (err) {
     console.log(err, "from getFilter");
   }
