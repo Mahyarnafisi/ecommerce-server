@@ -73,7 +73,7 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-      await generateTokenFunc(findUser[0]._id, res);
+      generateTokenFunc(findUser[0]._id, res);
 
       return res.status(200).json({
         status: "login successful",
