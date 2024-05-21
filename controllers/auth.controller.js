@@ -73,7 +73,8 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-      generateTokenFunc(findUser[0]._id, res);
+      await generateTokenFunc(findUser[0]._id, res);
+
       return res.status(200).json({
         status: "login successful",
         username: findUser[0].username,
@@ -81,7 +82,7 @@ export const loginUser = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(500).json({ status: `did not find username with name ${username}` });
+    res.status(500).json({ status: `ERROR ${username}` });
     console.log("error from login");
   }
 };
