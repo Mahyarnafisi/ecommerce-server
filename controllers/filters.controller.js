@@ -9,6 +9,7 @@ export const getFilter = async (req, res) => {
   const { product } = req.params;
 
   try {
+    // Keyboards filter data with number of items in each filter
     if (product === "keyboards") {
       const getKeyboardsFilterPanelData = [
         {
@@ -83,6 +84,8 @@ export const getFilter = async (req, res) => {
 
       return res.status(200).json({ status: "success", data: getKeyboardsFilterPanelData });
     }
+
+    // Keycaps filter data with number of items in each filter
     if (product === "keycaps") {
       const getKeycapsFilterPanelData = [
         {
