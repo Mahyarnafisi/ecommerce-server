@@ -3,13 +3,12 @@ const app = express();
 import Keyboard from "./../models/keyboards.model.js";
 
 export const getKeyboard = async (req, res) => {
+  console.log(req.query, "********************");
   try {
     // find all data in keyboards collection in the database
     if (!req.query.filter && !req.query.sort && !req.query.first) {
       const getAllKeyboards = await Keyboard.find();
-      return res
-        .status(200)
-        .json({ status: "no filter", numberOfData: getAllKeyboards.length, data: getAllKeyboards });
+      return res.status(200).json({ status: "no filter", numberOfData: getAllKeyboards.length, data: getAllKeyboards });
     }
     // find based on queries when sort in POPULAR
     if (req.query.sort === "popular" && !req.query.direction && !req.query.filter) {
