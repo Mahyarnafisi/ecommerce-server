@@ -4,6 +4,7 @@ import Accessory from "../models/accessories.model.js";
 export const getAccessories = async (req, res) => {
   try {
     const getAllAccessories = await Accessory.find();
+    console.log(req.query);
 
     // Check if there is a query and the query is "first" and return the first n number of data in accessories collection in the database ✅
     if (req.query && req.query.first) {
@@ -19,29 +20,19 @@ export const getAccessories = async (req, res) => {
       });
     }
 
-    // Check if there is a query and the query in sort and direction to list the data in ASC and DESC direction  ⬇️⬆️
-    if (req.query && req.query.sort === "price" && (req.query.direction === "asc" || req.query.direction === "desc")) {
-      // Sort the data in ASC and DESC direction
-      const sorting = getAllAccessories.sort((a, b) => {
-        if (req.query.direction === "asc") {
-          return a.price - b.price;
-        }
-        if (req.query.direction === "desc") {
-          return b.price - a.price;
-        }
-      });
+    // find based on queries when sort in PRICE and DIRECTION in ASCENDING or DESCENDING
+    if (req.query.sort && req.query.direction && !req.query.filter) {
+      const getAllAccessories = await Accessory.find().sort({ [req.query.sort]: req.query.direction });
       return res.status(200).json({
-        status: req.query.direction === "asc" ? "asc sorting accessories" : "desc sorting accessories",
-        numberOfData: sorting.length,
-        startingPrice: sorting[0].price,
-        data: sorting,
+        status: `${req.query.direction}`,
+        numberOfData: getAllAccessories.length,
+        data: getAllAccessories,
       });
     }
 
-    // Check if there is a query and the query in sort to list the data in POPULAR ITEM  ❤️
-    if (req.query && req.query.sort === "popular") {
-      // Sort the data in POPULAR ITEM
-      const popularSorting = getAllAccessories.sort((a, b) => b.popularity - a.popularity);
+    // find the first n number of data in Accessories collection in the database
+    if (req.query.first) {
+      const getAllAccessories = await Accessory.find().limit(parseInt(req.query.first));
       return res.status(200).json({
         status: "popularity sorting",
         numberOfData: popularSorting.length,
@@ -55,6 +46,9 @@ export const getAccessories = async (req, res) => {
       .status(200)
       .json({ status: "Here is all keyboards data", numberOfData: getAllAccessories.length, data: getAllAccessories });
   } catch (err) {
-    console.log(err, "from getAccessories");
+    res.status(404).json({
+      status: "failed",
+      message: err.message,
+    });
   }
 };
