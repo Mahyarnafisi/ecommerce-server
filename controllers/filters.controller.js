@@ -125,6 +125,73 @@ export const getFilter = async (req, res) => {
         data: getKeycapsFilterPanelData,
       });
     }
+
+    // Switches filter data with number of items in each filter
+    if (product === "switches") {
+      const getSwitchesFilterPanelData = [
+        {
+          title: "profile_type",
+          options: [
+            {
+              title: "low-profile",
+              number: await Switch.find({ profile_type: "low-profile" }).countDocuments(),
+            },
+            {
+              title: "normal-profile",
+              number: await Switch.find({ profile_type: "normal-profile" }).countDocuments(),
+            },
+          ],
+        },
+        {
+          title: "series",
+          options: [
+            {
+              title: "clicky",
+              number: await Switch.find({ series: "clicky" }).countDocuments(),
+            },
+            {
+              title: "tactile",
+              number: await Switch.find({ series: "tactile" }).countDocuments(),
+            },
+            {
+              title: "linear",
+              number: await Switch.find({ series: "linear" }).countDocuments(),
+            },
+          ],
+        },
+      ];
+      return res.status(200).json({
+        status: "success",
+        data: getSwitchesFilterPanelData,
+      });
+    }
+
+        // Accessories filter data with number of items in each filter
+        if (product === "accessories") {
+          const getAccessoriesFilterPanelData = [
+            {
+              title: "product_type",
+              options: [
+                {
+                  title: "deskmats",
+                  number: await Accessory.find({ product_type: "deskmats" }).countDocuments(),
+                },
+                {
+                  title: "wristrest",
+                  number: await Accessory.find({ product_type: "wristrest" }).countDocuments(),
+                },
+                {
+                  title: "cases",
+                  number: await Accessory.find({ product_type: "cases" }).countDocuments(),
+                },
+              ],
+            },
+          ];
+          return res.status(200).json({
+            status: "success",
+            data: getAccessoriesFilterPanelData,
+          });
+        }
   } catch (err) {
     console.log(err, "from getFilter");
   }

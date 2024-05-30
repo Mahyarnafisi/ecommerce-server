@@ -1,62 +1,75 @@
 import express from "express";
+const app = express();
 import Switch from "./../models/switches.model.js";
 
 export const getSwitches = async (req, res) => {
   try {
-    if (!req.query.direction && !req.query.filter && !req.query.first) {
+    //find all data in switches collection in database
+    if (!req.query.filter && !req.query.sort && !req.query.first) {
       const getAllSwitches = await Switch.find();
-      return res.status(200).json({ status: "successful", numberOfData: getAllSwitches.length, data: getAllSwitches });
+      return res.status(200).json({ status: "no filter", numberOfData: getAllSwitches.length, data: getAllSwitches });
     }
 
+    //find the first number of data in Switches collection in the database
     if (req.query.first) {
       const getAllSwitches = await Switch.find().limit(parseInt(req.query.first));
       return res.status(200).json({ status: "successful", numberOfData: getAllSwitches.length, data: getAllSwitches });
     }
 
-    if (req.query.filter || req.query.sort) {
-      const getAllSwitches = (await Switch.find().sort(req.query.direction ? { price: req.query.direction } : { popularity: -1 })).find({
-        $and: Array.from({ length: 20 }, (_, i) => ({ [req.query.filter[i]]: req.query.value[i] })),
-      });
+    // find based on queries when sort in POPULAR
+    if (req.query.sort === "popular" && !req.query.direction && !req.query.filter) {
+      const getAllSwitches = await Switch.find().sort({ popularity: -1 });
       return res.status(200).json({
-        status: getAllSwitches.length === 0 ? "There is no result founded!" : "success",
+        status: "most popular items",
         numberOfData: getAllSwitches.length,
         data: getAllSwitches,
       });
     }
-
-    // Check if there is a query and the query in sort and direction to list the data in ASC and DESC direction  ⬇️⬆️
-    if (req.query && req.query.sort === "price" && (req.query.direction === "asc" || req.query.direction === "desc")) {
-      // Sort the data in ASC and DESC direction
-      const sorting = getAllSwitches.sort((a, b) => {
-        if (req.query.direction === "asc") {
-          return a.price - b.price;
-        }
-        if (req.query.direction === "desc") {
-          return b.price - a.price;
-        }
-      });
+    
+    //find based on queries when sort in PRICE and DIRECTION in ASCENDING or DESCENDING
+    if (req.query.sort && req.query.direction && !req.query.filter) {
+      const  getAllSwitches = await Switch.find().sort({ [req.query.sort]: req.query.direction });
       return res.status(200).json({
-        status: req.query.direction === "asc" ? "asc sorting switches" : "desc sorting swithces",
-        numberOfData: sorting.length,
-        startingPrice: sorting[0].price,
-        data: sorting,
+        status: `${req.query.direction}`,
+        numberOfData:  getAllSwitches.length,
+        data:  getAllSwitches,
       });
     }
 
-    // Check if there is a query and the query in sort to list the data in POPULAR ITEM  ❤️
-    if (req.query && req.query.sort === "popular") {
-      // Sort the data in POPULAR ITEM
-      const popularSorting = getAllSwitches.sort((a, b) => b.popularity - a.popularity);
-      return res.status(200).json({
-        status: "popularity sorting",
-        numberOfData: popularSorting.length,
-        mostPopular: popularSorting[0].popularity,
-        data: popularSorting,
-      });
-    }
+     // find based on queries in filter and sort and direction and popular
+     if ((req.query.filter = "true")) {
+      // find based on queries in filter and sort and direction and popular if THERE IS AN ARRAY
+      if (Array.isArray(req.query.filterProperty)) {
+        const getAllSwitches = await Switch.find({
+          $and: Array.from({ length: req.query.filterProperty.length }, (_, i) => ({
+            [req.query.filterProperty[i]]: req.query.value[i],
+          })),
+        }).sort(req.query.direction ? { price: req.query.direction } : { popularity: -1 });
 
-    return res.status(200).json({ status: "Here is all keyboards data", numberOfData: getAllSwitches.length, data: getAllSwitches });
+        return res.status(200).json({
+          status: getAllSwitches.length === 0 ? "There is no result found!" : "success",
+          numberOfData: getAllSwitches.length,
+          data: getAllSwitches,
+        });
+      }
+
+      // find based on queries in filter and sort and direction and popular if THERE IS NO ARRAY
+      if (typeof req.query.filterProperty === "string") {
+        const getAllSwitches = await Switch.find({
+          [req.query.filterProperty]: req.query.value,
+        }).sort(req.query.direction ? { price: req.query.direction } : { popularity: -1 });
+
+        return res.status(200).json({
+          status: getAllSwitches.length === 0 ? "There is no result found!" : "success",
+          numberOfData: getAllSwitches.length,
+          data: getAllSwitches,
+        });
+      }
+    }
   } catch (err) {
-    console.log(err, "from getSwitches");
+    res.status(404).json({
+      status: "failed",
+      message: err.message,
+    });
   }
 };
