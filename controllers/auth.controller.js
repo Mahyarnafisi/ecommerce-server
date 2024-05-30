@@ -1,7 +1,9 @@
 import express from "express";
+import session from "express-session";
 import User from "./../models/user.model.js";
 import bcrypt from "bcrypt";
 import generateTokenFunc from "../utils/generateToken.js";
+const app = express();
 
 // signup user
 export const signupUser = async (req, res) => {
@@ -32,6 +34,7 @@ export const signupUser = async (req, res) => {
         password: hashedPassword,
         profilePicture: userPicture,
       });
+
       generateTokenFunc(newUser._id, res);
       await newUser.save();
       res.status(201).send({
@@ -73,7 +76,8 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-      generateTokenFunc(findUser[0]._id, res);
+      // generateTokenFunc(findUser[0]._id, res);
+      req.session.isAuth = true;
 
       return res.status(200).json({
         status: "login successful",
@@ -92,7 +96,7 @@ export const loginUser = async (req, res) => {
 export const logoutUser = async (req, res) => {
   console.log("from logout");
   try {
-    await res.clearCookie("jwt");
+    // await res.clearCookie("jwt");
     return res.status(200).json({
       status: "logged out successfully",
     });
