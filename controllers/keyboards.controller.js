@@ -3,7 +3,6 @@ const app = express();
 import Keyboard from "./../models/keyboards.model.js";
 
 export const getKeyboard = async (req, res) => {
-  console.log(req.query, "********************");
   try {
     // find all data in keyboards collection in the database
     if (!req.query.filter && !req.query.sort && !req.query.first) {

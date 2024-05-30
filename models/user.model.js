@@ -18,6 +18,15 @@ const userSchema = new mongoose.Schema(
     profilePicture: {
       type: String,
     },
+    favoriteList: {
+      type: [Object],
+    },
+    basketList: {
+      type: [Object],
+    },
+    purchasedList: {
+      type: [Object],
+    },
   },
   {
     timestamps: true,

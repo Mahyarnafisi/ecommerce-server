@@ -8,16 +8,55 @@ import accessoriesRoutes from "./routers/accessories.routes.js";
 import filtersRoutes from "./routers/filter.routes.js";
 import searchRoutes from "./routers/search.routes.js";
 import itemRoutes from "./routers/Item.routes.js";
-
 import cors from "cors";
+import session from "express-session";
+import mongoConnect from "connect-mongodb-session";
+const MongoDBStore = mongoConnect(session);
 import mongoose from "mongoose";
 const app = express();
+dotenv.config();
+//
+
+const store = new MongoDBStore({
+  uri: process.env.DATABASE_STRING,
+  collection: "sessions",
+});
+
+// MIDDLEWARES
+
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60, // 1 minute
+      secure: false,
+      sameSite: "none",
+    },
+    store: store,
+  })
+);
+
 app.use(express.json());
 app.use(cors());
-dotenv.config();
 
 const PORT = process.env.PORT || 3000;
+// MIDDLEWARE FOR SESSION
+const mongoDBsessionMiddleware = function (req, res, next) {
+  req.session.isAuth = true;
+  next();
+};
 
+// DATABASE CONNECTION
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.DATABASE_STRING);
+    console.log("Database connected successfully");
+  } catch (err) {
+    console.log(err, "from dbConnection");
+  }
+};
 // ROUTES FOR LOGIN, SIGNUP, LOGOUT
 app.use("/api/auth", authRoutes);
 
@@ -36,16 +75,6 @@ app.use("/api/filters", filtersRoutes);
 app.get("/", (req, res) => {
   res.send("<h2>the server is running on port 5555</h2>");
 });
-
-// DATABASE CONNECTION
-const connectToMongoDB = async () => {
-  try {
-    await mongoose.connect(process.env.DATABASE_STRING);
-    console.log("Database connected successfully");
-  } catch (err) {
-    console.log(err, "from dbConnection");
-  }
-};
 
 // SERVER CONNECTION
 app.listen(PORT, () => {
