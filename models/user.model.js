@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
     basketList: {
       type: [Object],
     },
-    purchasedList: {
+    purchaseHistory: {
       type: [Object],
     },
   },
