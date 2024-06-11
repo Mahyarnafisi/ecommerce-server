@@ -8,45 +8,49 @@ import accessoriesRoutes from "./routers/accessories.routes.js";
 import filtersRoutes from "./routers/filter.routes.js";
 import searchRoutes from "./routers/search.routes.js";
 import itemRoutes from "./routers/Item.routes.js";
+import favoritesRoutes from "./routers/favorites.routes.js";
 import cors from "cors";
+import mongoose from "mongoose";
 import session from "express-session";
 import mongoConnect from "connect-mongodb-session";
 const MongoDBStore = mongoConnect(session);
-import mongoose from "mongoose";
 const app = express();
 dotenv.config();
+const PORT = process.env.PORT || 3000;
 //
 
+app.use(express.json());
+
+// SESSION STORE
 const store = new MongoDBStore({
   uri: process.env.DATABASE_STRING,
   collection: "sessions",
 });
+store.on("error", function (err) {
+  console.log("error", err);
+});
 
 // MIDDLEWARES
-
 app.use(
   session({
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60, // 1 minute
-      secure: false,
-      sameSite: "none",
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     },
     store: store,
   })
 );
 
-app.use(express.json());
-app.use(cors());
-
-const PORT = process.env.PORT || 3000;
-// MIDDLEWARE FOR SESSION
-const mongoDBsessionMiddleware = function (req, res, next) {
-  req.session.isAuth = true;
-  next();
-};
+app.use(
+  cors({
+    // optionsSuccessStatus: 200,
+    credentials: true,
+    origin: "http://localhost:5173",
+  })
+);
 
 // DATABASE CONNECTION
 const connectToMongoDB = async () => {
@@ -57,6 +61,7 @@ const connectToMongoDB = async () => {
     console.log(err, "from dbConnection");
   }
 };
+
 // ROUTES FOR LOGIN, SIGNUP, LOGOUT
 app.use("/api/auth", authRoutes);
 
@@ -70,6 +75,9 @@ app.use("/api/products", itemRoutes);
 
 // ROUTES FOR FILTERS
 app.use("/api/filters", filtersRoutes);
+
+// ROUTES FOR Favorites
+app.use("/api/favorites", favoritesRoutes);
 
 // ROUTE FOR TESTING
 app.get("/", (req, res) => {

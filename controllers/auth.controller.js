@@ -1,8 +1,7 @@
-import express from "express";
-import session from "express-session";
-import User from "./../models/user.model.js";
 import bcrypt from "bcrypt";
+import express from "express";
 import generateTokenFunc from "../utils/generateToken.js";
+import User from "./../models/user.model.js";
 const app = express();
 
 // signup user
@@ -52,7 +51,6 @@ export const signupUser = async (req, res) => {
 //
 // login user
 export const loginUser = async (req, res) => {
-  console.log("from login");
   const { username, password } = req.body;
   try {
     // check if user exists
@@ -60,6 +58,7 @@ export const loginUser = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, findUser[0]?.password || "");
 
     if (findUser.length === 0) {
+      console.log("1");
       return res.status(404).json({
         status: "Theres no user with that username, please try again",
         data: username,
@@ -67,6 +66,7 @@ export const loginUser = async (req, res) => {
     }
 
     if (findUser.length > 0 && !isPasswordValid) {
+      console.log("2");
       // if user exists but password is incorrect, return incorrect password message ⛔
       return res.status(404).json({
         status: "incorrect password or username, please try again!",
@@ -76,13 +76,15 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-      // generateTokenFunc(findUser[0]._id, res);
+      console.log("3");
+      console.log(req.sessionID, "from login");
       req.session.isAuth = true;
 
       return res.status(200).json({
         status: "login successful",
-        username: findUser[0].username,
         profilePicture: findUser[0].profilePicture,
+        _id: findUser[0]._id,
+        username: findUser[0].username,
       });
     }
   } catch (err) {
@@ -92,11 +94,11 @@ export const loginUser = async (req, res) => {
 };
 
 //
+
 // logout user
 export const logoutUser = async (req, res) => {
-  console.log("from logout");
   try {
-    // await res.clearCookie("jwt");
+    req.session.destroy();
     return res.status(200).json({
       status: "logged out successfully",
     });
