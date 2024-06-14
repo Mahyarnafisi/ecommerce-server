@@ -79,6 +79,7 @@ app.use("/api/filters", filtersRoutes);
 
 // ROUTES FOR Favorites
 app.use("/api/favorites", favoritesRoutes);
+
 // ROUTES FOR Basket
 app.use("/api/basket", basketRoutes);
 
