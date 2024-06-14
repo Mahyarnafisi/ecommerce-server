@@ -1,9 +1,10 @@
-import express from "express";
 import Favorite from "../models/favorites.model.js";
 
 export const getFavorites = async (req, res) => {
+  const { userID } = req.params;
   try {
-    const getFavorites = await Favorite.findOne();
+    // Get the user's favorite list
+    const getFavorites = await Favorite.findOne({ userID: userID });
     res.status(200).json({
       message: "get favorites",
       getFavorites,
@@ -14,15 +15,16 @@ export const getFavorites = async (req, res) => {
 };
 
 export const postFavorite = async (req, res) => {
-  const { userID, favoriteItem } = req.body;
+  const { userID } = req.params;
   const getUser = await Favorite.findOne({ userID: userID });
 
   try {
     // If the user already has a favorite list, update it
     if (getUser) {
-      const updateFavorite = await Favorite.findOneAndUpdate({
+      // Update the user's favorite list
+      await Favorite.findOneAndUpdate({
         userID: userID,
-        $push: { favoritesList: favoriteItem },
+        $push: { favoritesList: req.body },
       });
 
       return res.status(400).json({
@@ -32,9 +34,10 @@ export const postFavorite = async (req, res) => {
 
     // If the user does not have a favorite list, create a new one
     if (!getUser) {
+      // Create a new favorite list
       const newFavorite = new Favorite({
         userID: userID,
-        favoritesList: favoriteItem,
+        favoritesList: req.body,
       });
       await newFavorite.save();
       return res.status(200).json({
@@ -47,16 +50,11 @@ export const postFavorite = async (req, res) => {
 };
 
 export const deleteFavorite = async (req, res) => {
-  const { userID, itemID } = req.body;
+  const { userID } = req.params;
 
   try {
-    const getFavorite = await Favorite.findOne({ userID: userID });
-    const updateFavorite = await Favorite.findOneAndUpdate(
-      { userID: userID },
-      {
-        $pull: { favoritesList: { _id: itemID } },
-      }
-    );
+    // Delete the item from the user's favorite list
+    await Favorite.findOneAndUpdate({ userID: userID, $pull: { favoritesList: { _id: req.body.itemID } } });
     return res.status(200).json({
       message: "Delete Favorite ",
     });
