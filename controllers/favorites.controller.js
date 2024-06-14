@@ -6,8 +6,8 @@ export const getFavorites = async (req, res) => {
     // Get the user's favorite list
     const getFavorites = await Favorite.findOne({ userID: userID });
     res.status(200).json({
-      message: "get favorites",
-      getFavorites,
+      numberOfResult: getFavorites.favoritesList.length,
+      data: getFavorites.favoritesList,
     });
   } catch (error) {
     console.log(error, "GET Favorite");
