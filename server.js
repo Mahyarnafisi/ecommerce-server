@@ -9,6 +9,7 @@ import filtersRoutes from "./routers/filter.routes.js";
 import searchRoutes from "./routers/search.routes.js";
 import itemRoutes from "./routers/Item.routes.js";
 import favoritesRoutes from "./routers/favorites.routes.js";
+import basketRoutes from "./routers/basket.routes.js";
 import cors from "cors";
 import mongoose from "mongoose";
 import session from "express-session";
@@ -78,6 +79,8 @@ app.use("/api/filters", filtersRoutes);
 
 // ROUTES FOR Favorites
 app.use("/api/favorites", favoritesRoutes);
+// ROUTES FOR Basket
+app.use("/api/basket", basketRoutes);
 
 // ROUTE FOR TESTING
 app.get("/", (req, res) => {
