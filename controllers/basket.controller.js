@@ -2,6 +2,7 @@ import Basket from "../models/basket.model.js";
 
 export const getBasket = async (req, res) => {
   const { userID } = req.params;
+
   try {
     const userBasketData = await Basket.findOne({ userID: userID });
     res.status(200).json({
@@ -16,11 +17,13 @@ export const getBasket = async (req, res) => {
 export const addBasketItem = async (req, res) => {
   const { userID } = req.params;
   const getUser = await Basket.findOne({ userID: userID });
+  console.log(req.params);
+  console.log(req.body);
 
   try {
     // If the user already has a basket list, update it
     if (getUser) {
-      const item = getUser.basketList?.find((item) => item.itemID === req.body.itemObject.itemID);
+      const item = getUser.basketList?.find((item) => item._id === req.body.itemObject._id);
       // If the item already exists in the basket list, update the quantity +1
       if (item) {
         item.quantity += 1;
