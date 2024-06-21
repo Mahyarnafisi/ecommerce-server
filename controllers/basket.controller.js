@@ -61,15 +61,16 @@ export const addBasketItem = async (req, res) => {
 //  Delete the item from the user's basket list
 export const deleteBasketItem = async (req, res) => {
   const { userID } = req.params;
+  console.log(req.body, req.params);
 
   try {
     // Delete the item from the user's basket list
     await Basket.findOneAndUpdate({
       userID: userID,
-      $pull: { basketList: { itemID: req.body.itemID } },
+      $pull: { basketList: { _id: req.body.itemID } },
     });
     return res.status(200).json({
-      message: "DELETE item from  Basket",
+      message: "DELETE item from Basket",
     });
   } catch (error) {
     console.log(error, "DELETE Basket");
