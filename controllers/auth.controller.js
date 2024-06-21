@@ -76,10 +76,6 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-      console.log("3");
-      console.log(req.sessionID, "from login");
-      req.session.isAuth = true;
-
       return res.status(200).json({
         status: "login successful",
         profilePicture: findUser[0].profilePicture,
@@ -98,7 +94,6 @@ export const loginUser = async (req, res) => {
 // logout user
 export const logoutUser = async (req, res) => {
   try {
-    req.session.destroy();
     return res.status(200).json({
       status: "logged out successfully",
     });
