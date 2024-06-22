@@ -6,9 +6,9 @@ export const getBasket = async (req, res) => {
 
   try {
     const userBasketData = await Basket.findOne({ userID: userID });
-    res.status(200).json({
+    return res.status(200).json({
       message: "GET Basket",
-      data: userBasketData.basketList.length !== 0 ? userBasketData?.basketList : "There is no item in basket list",
+      data: userBasketData?.basketList || [],
     });
   } catch (error) {
     console.log(error, "GET Basket");
