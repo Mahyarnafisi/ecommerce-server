@@ -60,7 +60,6 @@ export const addBasketItem = async (req, res) => {
 //  Delete the item from the user's basket list
 export const deleteBasketItem = async (req, res) => {
   const { userID } = req.params;
-  console.log(req.body, req.params);
 
   try {
     // Delete the item from the user's basket list
@@ -121,10 +120,11 @@ export const incrementBasketItem = async (req, res) => {
 export const decrementBasketItem = async (req, res) => {
   const { userID } = req.params;
   const getUser = await Basket.findOne({ userID: userID });
+  console.log(req.body, req.params);
 
   try {
     if (getUser) {
-      const item = getUser.basketList?.find((item) => item.itemID === req.body.itemObject.itemID);
+      const item = getUser.basketList?.find((item) => item._id === req.body.itemObject._id);
 
       if (item) {
         item.quantity -= 1;
