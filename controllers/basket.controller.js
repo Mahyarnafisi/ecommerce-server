@@ -2,7 +2,6 @@ import Basket from "../models/basket.model.js";
 
 export const getBasket = async (req, res) => {
   const { userID } = req.params;
-  console.log(req.params, "from get basket");
 
   try {
     const userBasketData = await Basket.findOne({ userID: userID });
@@ -84,7 +83,7 @@ export const incrementBasketItem = async (req, res) => {
 
   try {
     if (getUser) {
-      const item = getUser.basketList?.find((item) => item.itemID === req.body.itemObject.itemID);
+      const item = getUser.basketList?.find((item) => item._id === req.body.itemObject._id);
 
       if (item) {
         item.quantity += 1;
