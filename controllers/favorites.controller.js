@@ -7,28 +7,43 @@ export const getFavorites = async (req, res) => {
     const getFavorites = await Favorite.findOne({ userID: userID });
     res.status(200).json({
       numberOfResult: getFavorites.favoritesList.length,
-      data: getFavorites.favoritesList,
+      data: getFavorites.favoritesList || [],
     });
   } catch (error) {
     console.log(error, "GET Favorite");
   }
 };
 
-export const postFavorite = async (req, res) => {
+export const addFavoriteItem = async (req, res) => {
   const { userID } = req.params;
   const getUser = await Favorite.findOne({ userID: userID });
+  const findItem = getUser?.favoritesList.find((item) => item._id === req.body._id) || false;
 
   try {
     // If the user already has a favorite list, update it
-    if (getUser) {
+    if (getUser && findItem) {
+      console.log("1");
+      // Update the user's favorite list
+      await Favorite.findOneAndUpdate({
+        userID: userID,
+        $pull: { favoritesList: req.body },
+      });
+
+      return res.status(200).json({
+        message: "like the item",
+      });
+    }
+
+    if (getUser && !findItem) {
+      console.log("2");
       // Update the user's favorite list
       await Favorite.findOneAndUpdate({
         userID: userID,
         $push: { favoritesList: req.body },
       });
 
-      return res.status(400).json({
-        message: "User already has a favorite list and update it",
+      return res.status(200).json({
+        message: "unlike the item",
       });
     }
 
@@ -49,7 +64,7 @@ export const postFavorite = async (req, res) => {
   }
 };
 
-export const deleteFavorite = async (req, res) => {
+export const deleteFavoriteItem = async (req, res) => {
   const { userID } = req.params;
 
   try {
