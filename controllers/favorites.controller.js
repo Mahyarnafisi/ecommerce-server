@@ -2,6 +2,7 @@ import Favorite from "../models/favorites.model.js";
 
 export const getFavorites = async (req, res) => {
   const { userID } = req.params;
+
   try {
     // Get the user's favorite list
     const getFavorites = await Favorite.findOne({ userID: userID });
@@ -18,7 +19,7 @@ export const addFavoriteItem = async (req, res) => {
   const { userID } = req.params;
   const getUser = await Favorite.findOne({ userID: userID });
   const findItem = getUser?.favoritesList.find((item) => item._id === req.body._id) || false;
-
+  console.log(req.params, req.body, "addFavoriteItem");
   try {
     // If the user already has a favorite list, update it
     if (getUser && findItem) {
@@ -26,7 +27,7 @@ export const addFavoriteItem = async (req, res) => {
       // Update the user's favorite list
       await Favorite.findOneAndUpdate({
         userID: userID,
-        $pull: { favoritesList: req.body },
+        $pull: { favoritesList: { _id: req.body._id } },
       });
 
       return res.status(200).json({
