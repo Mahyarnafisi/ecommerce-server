@@ -64,16 +64,16 @@ export const addFavoriteItem = async (req, res) => {
   }
 };
 
-export const deleteFavoriteItem = async (req, res) => {
-  const { userID } = req.params;
+// export const deleteFavoriteItem = async (req, res) => {
+//   const { userID } = req.params;
 
-  try {
-    // Delete the item from the user's favorite list
-    await Favorite.findOneAndUpdate({ userID: userID, $pull: { favoritesList: { _id: req.body.itemID } } });
-    return res.status(200).json({
-      message: "Delete Favorite ",
-    });
-  } catch (error) {
-    console.log(error, "Delete Favorite");
-  }
-};
+//   try {
+//     // Delete the item from the user's favorite list
+//     await Favorite.findOneAndUpdate({ userID: userID, $pull: { favoritesList: { _id: req.body.itemID } } });
+//     return res.status(200).json({
+//       message: "Delete Favorite ",
+//     });
+//   } catch (error) {
+//     console.log(error, "Delete Favorite");
+//   }
+// };
