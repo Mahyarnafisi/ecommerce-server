@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import express from "express";
 import generateTokenFunc from "../utils/generateToken.js";
+import jwt from "jsonwebtoken";
 import User from "./../models/user.model.js";
 const app = express();
 
@@ -66,7 +67,6 @@ export const loginUser = async (req, res) => {
     }
 
     if (findUser.length > 0 && !isPasswordValid) {
-      console.log("2");
       // if user exists but password is incorrect, return incorrect password message ⛔
       return res.status(404).json({
         status: "incorrect password or username, please try again!",
@@ -76,11 +76,12 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
+      const token = jwt.sign({ id: findUser[0]._id }, process.env.JWT_SECRET_KEY, { expiresIn: "3m" });
       return res.status(200).json({
         status: "login successful",
         profilePicture: findUser[0].profilePicture,
-        _id: findUser[0]._id,
         username: findUser[0].username,
+        token: token,
       });
     }
   } catch (err) {
