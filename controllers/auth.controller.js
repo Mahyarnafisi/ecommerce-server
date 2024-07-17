@@ -10,16 +10,16 @@ export const signupUser = async (req, res) => {
   console.log("from signup");
   const { username, password } = req.body;
   try {
-    // check if user already exists
+    // check if user already exists.
     const findUser = await User.find({ username: username });
     console.log(findUser, "from signup");
 
-    // if user exists, return try new username message
+    // if user exists, return try new username message.
     if (findUser.length > 0) {
       return res.status(404).json({ status: "user already exists, please try another username", data: username });
     }
 
-    // if user does not exist, save user to database as new user
+    // if user does not exist, save user to database as new user.
     if (findUser.length === 0) {
       // create user picture
       const userPicture = `https://avatar.iran.liara.run/username?username=${username}`;
