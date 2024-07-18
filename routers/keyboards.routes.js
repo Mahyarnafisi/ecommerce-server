@@ -1,7 +1,7 @@
 import express from "express";
+import { getKeyboard } from "./../controllers/keyboards.controller.js";
 const app = express();
 const router = express.Router();
-import { getKeyboard } from "./../controllers/keyboards.controller.js";
 
 router.get("/keyboards", getKeyboard);
 
