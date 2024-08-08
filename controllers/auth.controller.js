@@ -84,6 +84,14 @@ export const loginUser = async (req, res) => {
         token: token,
       });
     }
+
+    // if user does not exist , return user not found message.
+    if (findUser.length === 0) {
+      return res.status(404).json({
+        status: "user not found",
+        data: username,
+      });
+    }
   } catch (err) {
     res.status(500).json({ status: `ERROR ${username}` });
     console.log("error from login");
