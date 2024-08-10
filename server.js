@@ -52,7 +52,7 @@ app.use(
   cors({
     // optionsSuccessStatus: 200,
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: "https://ecommerce-server-j2oy.onrender.com",
   })
 );
 
