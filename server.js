@@ -52,7 +52,7 @@ app.use(
   cors({
     // optionsSuccessStatus: 200,
     credentials: true,
-    origin: "https://ecommerce-server-j2oy.onrender.com",
+    origin: "https://ecommerce-client-mocha.vercel.app",
   })
 );
 
