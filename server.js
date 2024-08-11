@@ -91,7 +91,11 @@ app.use("/api/basket", basketRoutes);
 
 // ROUTE FOR TESTING
 app.get("/", (req, res) => {
-  res.send("<h2>the server is running on port 5555</h2>");
+  try {
+    res.status(200).json({ message: "Server is running" });
+  } catch (err) {
+    res.status(503).json({ message: err });
+  }
 });
 
 // SERVER CONNECTION
