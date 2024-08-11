@@ -52,7 +52,7 @@ app.use(
   cors({
     // optionsSuccessStatus: 200,
     credentials: true,
-    origin: "https://ecommerce-client-mocha.vercel.app",
+    origin: ["https://ecommerce-client-mocha.vercel.app", "http://localhost:5173"],
   })
 );
 
