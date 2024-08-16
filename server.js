@@ -16,6 +16,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import session from "express-session";
 import mongoConnect from "connect-mongodb-session";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
 const MongoDBStore = mongoConnect(session);
 const app = express();
 dotenv.config();
@@ -51,7 +55,11 @@ app.use(
   cors({
     // optionsSuccessStatus: 200,
     credentials: true,
+<<<<<<< HEAD
     origin: "http://localhost:5173",
+=======
+    origin: ["https://ecommerce-client-mocha.vercel.app", "http://localhost:5173"],
+>>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
   })
 );
 
@@ -90,7 +98,15 @@ app.use("/api/basket", basketRoutes);
 
 // ROUTE FOR TESTING
 app.get("/", (req, res) => {
+<<<<<<< HEAD
   res.send("<h2>the server is running on port 5555</h2>");
+=======
+  try {
+    res.status(200).json({ message: "Server is running" });
+  } catch (err) {
+    res.status(503).json({ message: err });
+  }
+>>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
 });
 
 // SERVER CONNECTION
