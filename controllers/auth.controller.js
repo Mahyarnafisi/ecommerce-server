@@ -1,10 +1,7 @@
 import bcrypt from "bcrypt";
 import express from "express";
 import generateTokenFunc from "../utils/generateToken.js";
-<<<<<<< HEAD
-=======
 import jwt from "jsonwebtoken";
->>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
 import User from "./../models/user.model.js";
 const app = express();
 
@@ -13,28 +10,16 @@ export const signupUser = async (req, res) => {
   console.log("from signup");
   const { username, password } = req.body;
   try {
-<<<<<<< HEAD
-    // check if user already exists
-    const findUser = await User.find({ username: username });
-    console.log(findUser, "from signup");
-
-    // if user exists, return try new username message
-=======
     // check if user already exists.
     const findUser = await User.find({ username: username });
     console.log(findUser, "from signup");
 
     // if user exists, return try new username message.
->>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
     if (findUser.length > 0) {
       return res.status(404).json({ status: "user already exists, please try another username", data: username });
     }
 
-<<<<<<< HEAD
-    // if user does not exist, save user to database as new user
-=======
     // if user does not exist, save user to database as new user.
->>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
     if (findUser.length === 0) {
       // create user picture
       const userPicture = `https://avatar.iran.liara.run/username?username=${username}`;
@@ -82,10 +67,6 @@ export const loginUser = async (req, res) => {
     }
 
     if (findUser.length > 0 && !isPasswordValid) {
-<<<<<<< HEAD
-      console.log("2");
-=======
->>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
       // if user exists but password is incorrect, return incorrect password message ⛔
       return res.status(404).json({
         status: "incorrect password or username, please try again!",
@@ -95,13 +76,6 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-<<<<<<< HEAD
-      return res.status(200).json({
-        status: "login successful",
-        profilePicture: findUser[0].profilePicture,
-        _id: findUser[0]._id,
-        username: findUser[0].username,
-=======
       const token = jwt.sign({ id: findUser[0]._id }, process.env.JWT_SECRET_KEY, { expiresIn: "3m" });
       return res.status(200).json({
         status: "login successful",
@@ -116,7 +90,6 @@ export const loginUser = async (req, res) => {
       return res.status(404).json({
         status: "user not found",
         data: username,
->>>>>>> 515be15e4bd454e0174fd34c2d87fdea0cef0d0f
       });
     }
   } catch (err) {
