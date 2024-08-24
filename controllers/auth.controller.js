@@ -7,10 +7,12 @@ const app = express();
 
 // signup user
 export const signupUser = async (req, res) => {
+  console.log("from signup");
   const { username, password } = req.body;
   try {
     // check if user already exists.
     const findUser = await User.find({ username: username });
+    console.log(findUser, "from signup");
 
     // if user exists, return try new username message.
     if (findUser.length > 0) {
