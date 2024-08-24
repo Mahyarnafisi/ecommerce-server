@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import express from "express";
-import generateTokenFunc from "../utils/generateToken.js";
 import jwt from "jsonwebtoken";
+import generateTokenFunc from "../utils/generateToken.js";
 import User from "./../models/user.model.js";
 const app = express();
 
