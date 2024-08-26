@@ -10,6 +10,9 @@
   "type": "module",
   "author": "mahyar nafisi",
   "license": "ISC",
+  "engines": {
+  "node": ">=18.18.0 "
+},
   "dependencies": {
     "bcrypt": "^5.1.0",
     "connect-mongodb-session": "^5.0.0",
