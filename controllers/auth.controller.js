@@ -1,13 +1,13 @@
 import bcrypt from "bcrypt";
 import express from "express";
-import jwt from "jsonwebtoken";
 import generateTokenFunc from "../utils/generateToken.js";
+import jwt from "jsonwebtoken";
 import User from "./../models/user.model.js";
 const app = express();
 
 // signup user
 export const signupUser = async (req, res) => {
-  console.log("from signupi");
+  console.log("from signup");
   const { username, password } = req.body;
   try {
     // check if user already exists.
@@ -76,9 +76,7 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-      const token = jwt.sign({ id: findUser[0]._id }, process.env.JWT_SECRET_KEY, {
-        expiresIn: "3m",
-      });
+      const token = jwt.sign({ id: findUser[0]._id }, process.env.JWT_SECRET_KEY, { expiresIn: "3m" });
       return res.status(200).json({
         status: "login successful",
         profilePicture: findUser[0].profilePicture,
