@@ -30,7 +30,7 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 store.on("error", function (err) {
-  console.log("error", err);
+  console.log("errorr", err);
 });
 
 // MIDDLEWARES
