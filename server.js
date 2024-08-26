@@ -30,7 +30,7 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 store.on("error", function (err) {
-  console.log("error", err);
+  console.log("errorr", err);
 });
 
 // MIDDLEWARES
@@ -93,7 +93,7 @@ app.get("/", (req, res) => {
   try {
     res.status(200).json({ message: "Server is running" });
   } catch (err) {
-    res.status(503).json({ message: err });
+    res.status(503).json({ message: err, status: "error" });
   }
 });
 

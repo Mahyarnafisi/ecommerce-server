@@ -35,3 +35,6 @@ yarn.lock
 
 # Ignore sensitive information
 secrets.txt
+
+.env
+.env.local
