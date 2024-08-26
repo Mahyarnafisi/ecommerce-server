@@ -16,9 +16,7 @@ export const signupUser = async (req, res) => {
 
     // if user exists, return try new username message.
     if (findUser.length > 0) {
-      return res
-        .status(404)
-        .json({ status: "user already exists, please try another username", data: username });
+      return res.status(404).json({ status: "user already exists, please try another username", data: username });
     }
 
     // if user does not exist, save user to database as new user.
