@@ -77,7 +77,7 @@ app.use("/api", searchRoutes);
 app.use("/api/products", itemRoutes);
 
 // Router to email subscription
-app.use("/api/subscribe", subscriptionRoutes);
+// app.use("/api/subscribe", subscriptionRoutes);
 
 // ROUTES FOR FILTERS
 app.use("/api/filters", filtersRoutes);
