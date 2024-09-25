@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "postinstall": "npm rebuild bcrypt --build-from-source"
+    "start": "nodemon server.js"
   },
   "type": "module",
   "author": "mahyar nafisi",
