@@ -10,7 +10,7 @@ import searchRoutes from "./routers/search.routes.js";
 import itemRoutes from "./routers/Item.routes.js";
 import favoritesRoutes from "./routers/favorites.routes.js";
 import basketRoutes from "./routers/basket.routes.js";
-import subscriptionRoutes from "./routers/subscriptions.routes.js";
+// import subscriptionRoutes from "./routers/subscriptions.routes.js";
 
 import cors from "cors";
 import mongoose from "mongoose";
