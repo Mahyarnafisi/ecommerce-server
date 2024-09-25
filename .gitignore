@@ -1,10 +1,6 @@
 # Ignore node_modules directory
-<<<<<<< HEAD
 
 node_modules/
-=======
-# node_modules/
->>>>>>> b7afec72f4d1407263f9a2de29fdd5c46caad498
 
 # Ignore build output
 dist/

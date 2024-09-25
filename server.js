@@ -19,7 +19,7 @@ import mongoConnect from "connect-mongodb-session";
 const MongoDBStore = mongoConnect(session);
 const app = express();
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 //
 
 app.use(express.json());
