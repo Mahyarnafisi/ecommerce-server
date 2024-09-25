@@ -23,8 +23,8 @@ export const createCheckoutSession = async (req, res) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: "http://localhost:5173/wishlist",
-    cancel_url: "http://localhost:5173/checkout",
+    success_url: "https://ecommerce-client-mocha.vercel.app/wishlist",
+    cancel_url: "https://ecommerce-client-mocha.vercel.app/checkout",
   });
 
   res.json({ id: session.id });
