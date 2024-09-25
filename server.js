@@ -89,7 +89,7 @@ app.use("/api/favorites", favoritesRoutes);
 // ROUTES FOR Basket
 app.use("/api/basket", basketRoutes);
 
-// ROUTE FOR TESTING
+// MAIN ROUTE FOR TESTING
 app.get("/", (req, res) => {
   res.send("<h2>the server is running on port 5555</h2>");
 });
