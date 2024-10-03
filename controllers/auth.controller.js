@@ -12,7 +12,6 @@ export const signupUser = async (req, res) => {
   try {
     // check if user already exists.
     const findUser = await User.find({ username: username });
-    console.log(findUser, "from signup");
 
     // if user exists, return try new username message.
     if (findUser.length > 0) {
@@ -35,8 +34,12 @@ export const signupUser = async (req, res) => {
         profilePicture: userPicture,
       });
 
-      generateTokenFunc(newUser._id, res);
+      // generate token
+
       await newUser.save();
+
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: "60" });
+
       res.status(201).send({
         status: "new user created successfully",
         _id: newUser._id,
@@ -53,6 +56,7 @@ export const signupUser = async (req, res) => {
 // login user
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
+
   try {
     // check if user exists
     const findUser = await User.find({ username });
@@ -76,12 +80,20 @@ export const loginUser = async (req, res) => {
 
     // if user exists, check if password is correct and return login successful message ✅
     if (findUser.length > 0 && isPasswordValid) {
-      const token = jwt.sign({ id: findUser[0]._id }, process.env.JWT_SECRET_KEY, { expiresIn: "3m" });
+      console.log(findUser[0]._id, "from login");
+
+      const token = jwt.sign({ id: findUser[0]._id }, process.env.JWT_SECRET_KEY, { expiresIn: "60" });
+
+      // res.cookie("token", token, {
+      //   expire: new Date(Date.now() + 3 * 60),
+      // });
+
       return res.status(200).json({
+        token,
         status: "login successful",
         profilePicture: findUser[0].profilePicture,
         username: findUser[0].username,
-        token: token,
+        userId: findUser[0]._id,
       });
     }
 

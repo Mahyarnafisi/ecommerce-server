@@ -5,10 +5,20 @@ export const getBasket = async (req, res) => {
 
   try {
     const userBasketData = await Basket.findOne({ userID: userID });
-    return res.status(200).json({
-      message: "GET Basket",
-      data: userBasketData?.basketList || [],
-    });
+
+    if (!userBasketData) {
+      return res.status(200).json({
+        message: "Basket is empty!",
+        data: [],
+      });
+    }
+
+    if (userBasketData) {
+      return res.status(200).json({
+        message: "GET Basket",
+        data: userBasketData?.basketList ?? [],
+      });
+    }
   } catch (error) {
     console.log(error, "GET Basket");
   }
@@ -63,10 +73,7 @@ export const deleteBasketItem = async (req, res) => {
 
   try {
     // Delete the item from the user's basket list
-    await Basket.findOneAndUpdate({
-      userID: userID,
-      $pull: { basketList: { _id: req.body.itemID } },
-    });
+    await Basket.findOneAndUpdate({ userID: userID }, { $pull: { basketList: { _id: req.body.itemID } } });
     return res.status(200).json({
       message: "DELETE item from Basket",
     });

@@ -16,6 +16,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import session from "express-session";
 import mongoConnect from "connect-mongodb-session";
+import { requireAuth } from "./middleware/requireAuth.js";
+
 const MongoDBStore = mongoConnect(session);
 const app = express();
 dotenv.config();
@@ -91,9 +93,9 @@ app.use("/api/basket", basketRoutes);
 // MAIN ROUTE FOR TESTING
 app.get("/", (req, res) => {
   try {
-    res.status(200).json({ message: "Server is running" });
+    return res.status(200).json({ message: "Server is running" });
   } catch (err) {
-    res.status(503).json({ message: err, status: "error" });
+    return res.status(503).json({ message: err, status: "error" });
   }
 });
 

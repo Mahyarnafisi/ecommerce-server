@@ -1,24 +1,21 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.model.js";
 
 export const requireAuth = async (req, res, next) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
-    res.status(401).json({
-      error: "You must be logged in",
+  if (req.headers.authorization) {
+    const { authorization } = req.headers;
+    const token = authorization && authorization?.split(" ")[1].replace(/"/g, "");
+
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+      if (err) {
+        console.log(err, "from requireAuth");
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      console.log(decoded, "from requireAuth");
+      req.user = decoded;
+      // const getUser = User.findById(decoded.id);
+      // console.log(getUser, "from requireAuth");
     });
-  }
-  const token = authorization?.split(" ")[1];
-  console.log(token, "token");
-
-  try {
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log(_id, "id");
-
     next();
-  } catch (error) {
-    res.status(401).json({
-      error: "You must be logged in, not valid token",
-    });
   }
+  return;
 };
